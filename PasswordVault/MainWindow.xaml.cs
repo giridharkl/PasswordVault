@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Web.Security;
 
 using PasswordVault.ViewModels;
 
@@ -22,12 +23,12 @@ namespace PasswordVault
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        MainViewModel mainViewModel;
         public MainWindow()
         {
             InitializeComponent();
 
-            MainViewModel mainViewModel = new MainViewModel();
+            mainViewModel = new MainViewModel();
             mainViewModel.AppTitle = Constants.AppTitle;
             mainViewModel.VaultRows = SQLiteDataAccess.LoadVault();
             this.VaultRows.ItemsSource = mainViewModel.VaultRows;
@@ -37,6 +38,17 @@ namespace PasswordVault
         private void RibbonMenuItemExit_Click(object sender, RoutedEventArgs e)
         {
             App.Current.Shutdown();
+        }
+
+        private void AutoPassword_Checked(object sender, RoutedEventArgs e)
+        {
+            mainViewModel.Password = generatePassword(12);
+            this.NewPassword.Text = mainViewModel.Password;
+        }
+
+        private String generatePassword(int len)
+        {
+            return Membership.GeneratePassword(len, 1);
         }
     }
 }

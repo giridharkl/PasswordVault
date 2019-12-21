@@ -8,15 +8,48 @@
         mc:Ignorable="d"
         Title="{Binding AppTitle, Mode=OneTime, FallbackValue='Password Vault'}" Height="450" Width="800" Icon="Home.ico" ShowInTaskbar="False">
     <Grid>
-        <StackPanel>
-            <Ribbon>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="2" BorderBrush="LightGray" BorderThickness="1"/>
+        <Ribbon Grid.ColumnSpan="4">
                 <Ribbon.ApplicationMenu>
                     <RibbonApplicationMenu>
                         <RibbonApplicationMenuItem Header="Exit" Click="RibbonMenuItemExit_Click"/>
                     </RibbonApplicationMenu>
                 </Ribbon.ApplicationMenu>
             </Ribbon>
-            <DataGrid x:Name="VaultRows" ItemsSource="{Binding VaultRows, Mode=Default}"></DataGrid>
+            <DataGrid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3"  ColumnWidth="*" 
+                      x:Name="VaultRows" ItemsSource="{Binding VaultRows, Mode=Default}" 
+                      HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray"
+                      VerticalScrollBarVisibility="Auto" Margin="5,5,5,0"></DataGrid>
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Margin="5,5,5,0">
+            <TextBox MinHeight="30" Text="Url" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="Username" VerticalContentAlignment="Center"></TextBox>
+            <TextBox x:Name="NewPassword" MinHeight="30" Text="{Binding Password, Mode=TwoWay}" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="Email" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="Phone" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="PassPhrase" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="Comments" VerticalContentAlignment="Center"></TextBox>
         </StackPanel>
+
+        <Grid Grid.Row="4" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="NewVaultRow" Grid.Column="0" Content="New" Margin="5"/>
+            <Button x:Name="SaveVaultRow" Grid.Column="1" Content="Save" Margin="5"/>
+        </Grid>
+        <CheckBox x:Name="AutoPassword" Content="Auto Password" Checked="AutoPassword_Checked" IsChecked="{Binding AutoPassword}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
     </Grid>
 </Window>
