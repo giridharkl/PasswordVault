@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Web.Security;
 
 using PasswordVault.ViewModels;
+using PasswordVault.Models;
 
 namespace PasswordVault
 {
@@ -27,12 +28,11 @@ namespace PasswordVault
         public MainWindow()
         {
             InitializeComponent();
-
-            mainViewModel = new MainViewModel();
+            Vault vault = new Vault();
+            mainViewModel = new MainViewModel(vault);
             mainViewModel.AppTitle = Constants.AppTitle;
             mainViewModel.VaultRows = SQLiteDataAccess.LoadVault();
-            this.VaultRows.ItemsSource = mainViewModel.VaultRows;
-            //this.DataContext = mainViewModel;
+            this.DataContext = mainViewModel;
         }
 
         private void RibbonMenuItemExit_Click(object sender, RoutedEventArgs e)
@@ -43,12 +43,41 @@ namespace PasswordVault
         private void AutoPassword_Checked(object sender, RoutedEventArgs e)
         {
             mainViewModel.Password = generatePassword(12);
-            this.NewPassword.Text = mainViewModel.Password;
         }
 
         private String generatePassword(int len)
         {
             return Membership.GeneratePassword(len, 1);
+        }
+
+        private void VaultRows_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dg = (DataGrid)sender;
+            Vault vaultRow = dg.SelectedItem as Vault;
+            if(vaultRow != null)
+            {
+                EditVaultRow(vaultRow, this.mainViewModel);
+            }
+        }
+
+        private void EditVaultRow(Vault vault, MainViewModel viewModel)
+        {
+            try
+            {
+                viewModel.Id = vault.Id;
+                viewModel.Url = vault.Url;
+                viewModel.Username = vault.Username;
+                viewModel.Password = vault.Password;
+                viewModel.Passphrase = vault.Passphrase;
+                viewModel.Email = vault.Email;
+                viewModel.Phone = vault.Phone;
+                viewModel.Comments = vault.Comments;
+            }
+            catch(Exception e)
+            {
+
+            }
+            
         }
     }
 }

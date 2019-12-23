@@ -29,17 +29,24 @@
                 </Ribbon.ApplicationMenu>
             </Ribbon>
             <DataGrid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3"  ColumnWidth="*" 
-                      x:Name="VaultRows" ItemsSource="{Binding VaultRows, Mode=Default}" 
+                      x:Name="VaultRows" ItemsSource="{Binding VaultRows, Mode=TwoWay}" 
                       HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray"
-                      VerticalScrollBarVisibility="Auto" Margin="5,5,5,0"></DataGrid>
+                      VerticalScrollBarVisibility="Auto" Margin="5,5,5,0" SelectionChanged="VaultRows_SelectionChanged">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Edit"></MenuItem>
+                    <MenuItem Header="Delete"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            </DataGrid>
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Margin="5,5,5,0">
-            <TextBox MinHeight="30" Text="Url" VerticalContentAlignment="Center"></TextBox>
-            <TextBox MinHeight="30" Text="Username" VerticalContentAlignment="Center"></TextBox>
-            <TextBox x:Name="NewPassword" MinHeight="30" Text="{Binding Password, Mode=TwoWay}" VerticalContentAlignment="Center"></TextBox>
-            <TextBox MinHeight="30" Text="Email" VerticalContentAlignment="Center"></TextBox>
-            <TextBox MinHeight="30" Text="Phone" VerticalContentAlignment="Center"></TextBox>
-            <TextBox MinHeight="30" Text="PassPhrase" VerticalContentAlignment="Center"></TextBox>
-            <TextBox MinHeight="30" Text="Comments" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+            <TextBox x:Name="txtPassword" MinHeight="30" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+            <TextBox MinHeight="30" Text="{Binding Passphrase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+            <TextBox x:Name="txtComments" MinHeight="30" Text="{Binding Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
         </StackPanel>
 
         <Grid Grid.Row="4" Grid.Column="0">
