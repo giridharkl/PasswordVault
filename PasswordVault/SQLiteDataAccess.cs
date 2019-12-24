@@ -15,7 +15,7 @@ namespace PasswordVault
     {
         public static List<Vault> LoadVault()
         {
-            using (IDbConnection con = new SQLiteConnection(LoadConnectionString("sqlite")))
+            using (IDbConnection con = new SQLiteConnection(LoadConnectionString(Constants.DATABASE_ID)))
             {
                 var output = con.Query<Vault>("SELECT * FROM VAULT", new DynamicParameters());
                 return output.ToList();
@@ -23,9 +23,25 @@ namespace PasswordVault
         }
         public static void SaveVault(Vault vault)
         {
-            using (IDbConnection con = new SQLiteConnection(LoadConnectionString("sqlite")))
+            using (IDbConnection con = new SQLiteConnection(LoadConnectionString(Constants.DATABASE_ID)))
             {
                 con.Execute("INSERT INTO () VALUES ()", vault);
+            }
+        }
+
+        public static void UpdateVault(Vault vault)
+        {
+            using(IDbConnection con = new SQLiteConnection(LoadConnectionString(Constants.DATABASE_ID)))
+            {
+                con.Execute("UPDATE VAULT", vault);
+            }
+        }
+
+        public static void DeleteVault(int id)
+        {
+            using (IDbConnection con = new SQLiteConnection(LoadConnectionString(Constants.DATABASE_ID)))
+            {
+                con.Execute("DELETE FROM VAULT WHERE ID=", id);
             }
         }
 

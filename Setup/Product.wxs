@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define PasswordVault_TargetDir=$(var.PasswordVault.TargetDir)?>
+	<Product Id="279E9FA4-3724-46C2-961F-A35D6BEE32E3" Name="PasswordVault" Language="1033" Version="1.0.0.0" Manufacturer="PasswordVault" UpgradeCode="92e24a3f-7cf8-46f6-b6ed-0e557c9c988c">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\gpl-3.0.rtf" />
+    
+    <UIRef Id="WixUI_Minimal" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="PasswordVault" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="database_files" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="PasswordVault">
+				  <Directory Id="database" Name="database" />
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+			<Component Id="PasswordVault.exe" Guid="a95859a4-87c0-40c6-a59a-258f29546d50">
+			  <File Id="PasswordVault.exe" Name="PasswordVault.exe" Source="$(var.PasswordVault_TargetDir)PasswordVault.exe" />
+			</Component>
+			<Component Id="PasswordVault.exe.config" Guid="f38dffba-1101-4820-9609-b62713c090be">
+			  <File Id="PasswordVault.exe.config" Name="PasswordVault.exe.config" Source="$(var.PasswordVault_TargetDir)PasswordVault.exe.config" />
+			</Component>
+			<Component Id="System.Data.SQLite.dll" Guid="238206c1-45b5-410f-9f89-07a98a44ea66">
+			  <File Id="System.Data.SQLite.dll" Name="System.Data.SQLite.dll" Source="$(var.PasswordVault_TargetDir)System.Data.SQLite.dll" />
+			</Component>
+			<Component Id="Dapper.dll" Guid="fae3fb30-c5cc-4c80-93f7-64bdac800de6">
+			  <File Id="Dapper.dll" Name="Dapper.dll" Source="$(var.PasswordVault_TargetDir)Dapper.dll" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="database_files" Directory="database">
+      <Component Id="database_vault.db" Guid="90ddeefc-18c0-48c2-b4b8-da294bdbb554">
+        <File Id="database_vault.db" Name="vault.db" Source="$(var.PasswordVault_TargetDir)database\vault.db" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
