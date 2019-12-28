@@ -1,0 +1,43 @@
+﻿<Window x:Class="PasswordVault.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PasswordVault"
+        mc:Ignorable="d"
+        Title="Login" Height="300" Width="500" WindowStyle="None">
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="30">
+            <Label FontSize="28">Login</Label>
+            <Separator HorizontalAlignment="Stretch" Margin="0,2,0,10" Background="#FF1052F1" OpacityMask="#FF1052F1" BorderBrush="#FF1052F1" Height="5" Foreground="#FF1052F1" MinWidth="2"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="18">User Name</Label>
+                <TextBox x:Name="txtUsername" Grid.Row="0" Grid.Column="1" Background="#FFC7D2F6" Margin="0,5" VerticalContentAlignment="Center" Height="30"></TextBox>
+                <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="18">Password</Label>
+                <PasswordBox x:Name="txtPassword" Grid.Row="1" Grid.Column="1" Background="#FFC7D2F6" Margin="0,5" VerticalContentAlignment="Center" Height="30"></PasswordBox>
+            </Grid>
+            <TextBlock x:Name="ErrorMessage" Foreground="Red" Margin="10" Height='30'></TextBlock>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="1" Grid.Column="0" Click="btnLogin_Click" Content="Login" Width="Auto" Margin="5,0" Height="30" FontSize="14"></Button>
+                <Button Grid.Row="1" Grid.Column="1" Click="btnRegister_Click" Content="Register" Width="Auto" Margin="5,0" FontSize="14"></Button>
+                <Button Grid.Row="1" Grid.Column="2" Click="btnForgotPw_Click" Content="Forgot Password" Width="Auto" Margin="5,0" FontSize="14"></Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
