@@ -24,7 +24,7 @@
                 <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="18">Password</Label>
                 <PasswordBox x:Name="txtPassword" Grid.Row="1" Grid.Column="1" Background="#FFC7D2F6" Margin="0,5" VerticalContentAlignment="Center" Height="30"></PasswordBox>
             </Grid>
-            <TextBlock x:Name="ErrorMessage" Foreground="Red" Margin="10" Height='30'></TextBlock>
+            <TextBox x:Name="ErrorMessage" Foreground="Red" Margin="5,10" Height='30' Text="{Binding ErrorMessage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" BorderBrush="{x:Null}"></TextBox>
             <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>

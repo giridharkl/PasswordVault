@@ -1,4 +1,5 @@
-﻿using PasswordVault.ViewModels;
+﻿using PasswordVault.Models;
+using PasswordVault.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,8 +53,27 @@ namespace PasswordVault
         {
             string _user = this.txtUsername.Text;
             string _pass = this.txtPassword.Password;
+            bool auth = false;
 
-            return true;
+            if(String.IsNullOrEmpty(_user) || String.IsNullOrEmpty(_pass))
+            {
+                loginViewModel.ErrorMessage = "Username/Password do not match!";
+            }
+            else
+            {
+                User _userLogged = SQLiteDataAccess.GetUser(_user);
+                if (_userLogged != null && _user.Equals(_userLogged.Username) && _pass.Equals(_userLogged.Password))
+                {
+                    auth = true;
+                }
+                else
+                {
+                    loginViewModel.ErrorMessage = "Username/Password do not match!";
+                }
+            }
+
+            return auth;
+            
         }
     }
 }

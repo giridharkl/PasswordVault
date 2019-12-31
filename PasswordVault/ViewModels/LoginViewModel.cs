@@ -10,6 +10,16 @@ namespace PasswordVault.ViewModels
     {
         private string _username;
         private string _password;
+        private string _errorMessage;
 
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                NotifyPropertyChanged("ErrorMessage");
+            }
+        }
     }
 }

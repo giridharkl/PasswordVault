@@ -41,7 +41,7 @@ namespace PasswordVault
         {
             using (IDbConnection con = new SQLiteConnection(LoadConnectionString(Constants.DATABASE_ID)))
             {
-                con.Execute("DELETE FROM VAULT WHERE ID=", id);
+                con.Execute("DELETE FROM VAULT WHERE ID=@ID", new { ID = id});
             }
         }
 
@@ -50,6 +50,23 @@ namespace PasswordVault
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
 
+        public static User GetUser(string username)
+        {
+            User _user = null;
 
+            using (IDbConnection con = new SQLiteConnection(LoadConnectionString(Constants.DATABASE_ID)))
+            {
+                try
+                {   
+                    _user = con.QuerySingle<User>("SELECT * FROM USER WHERE USERNAME=@USERNAME", new { USERNAME = username });
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+            return _user;
+        }
     }
 }
