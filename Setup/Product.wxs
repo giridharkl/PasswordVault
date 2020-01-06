@@ -4,8 +4,9 @@
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\gpl-3.0.rtf" />
-    
-    <UIRef Id="WixUI_Minimal" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="TESTFILEPRODUCTDIR" />
+    <UIRef Id="WixUI_InstallDir" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes" />
@@ -19,7 +20,9 @@
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
+        <Directory Id="TESTFILEPRODUCTDIR" Name="PasswordVault">
 				<Directory Id="INSTALLFOLDER" Name="PasswordVault">
+          </Directory>
 				  <Directory Id="database" Name="database" />
 				</Directory>
 			</Directory>
